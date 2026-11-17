@@ -11,14 +11,20 @@ import murach.business.SurveyDTO;
 import murach.data.UserDB;
 
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.time.LocalDate;
 
-@WebServlet({"/emailList", "/survey"})
+@WebServlet("/emailList")
 public class EmailListServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        GregorianCalendar currentDate = new GregorianCalendar();
+        int currentYear = currentDate.get(Calendar.YEAR);
+        request.setAttribute("currentYear", currentYear);
 
         request.setCharacterEncoding("UTF-8");
         String url = "/index.jsp";
