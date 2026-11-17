@@ -1,12 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Murach's Java Servlets and JSP</title>
-    <link rel="stylesheet" href="main.css">
-</head>
-<body>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<c:import url="/includes/header.html" />
 
 <main>
 
@@ -79,6 +73,4 @@
     </form>
 
 </main>
-
-</body>
-</html>
+<c:import url="/includes/footer.jsp" />
