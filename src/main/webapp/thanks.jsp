@@ -1,6 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="jakarta.tags.core" %>
-<c:import url="/includes/header.html" />
+<%@ include file="/includes/header.html" %>
 <main>
     <img src="images/murach_logo.jpg" alt="Murach Logo" class="logo">
 
@@ -40,4 +39,4 @@
         <input type="submit" value="Return">
     </form>
 </main>
-<c:import url="/includes/footer.jsp" />
+<%@ include file="/includes/footer.jsp" %>

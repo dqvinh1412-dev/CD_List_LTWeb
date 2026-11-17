@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
-<c:import url="/includes/header.html" />
+<%@ include file="/includes/header.html" %>
 
 <main>
 
@@ -8,7 +8,9 @@
 
     <h1>Survey</h1>
     <p>If you have a moment, we'd appreciate it if you would fill out this survey.</p>
-    <p>${message}</p>
+    <c:if test="${message != null}">
+        <p>${message}</p>
+    </c:if>
 
     <form action="emailList" method="post">
         <input type="hidden" name="action" value="add">
@@ -73,4 +75,4 @@
     </form>
 
 </main>
-<c:import url="/includes/footer.jsp" />
+<%@ include file="/includes/footer.jsp" %>
