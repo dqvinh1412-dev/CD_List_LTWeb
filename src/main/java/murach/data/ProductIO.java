@@ -11,23 +11,38 @@ public class ProductIO {
     public static Product getProduct(String code, String path) {
         ArrayList<Product> products = getProducts(path);
         for (Product product : products) {
-            if (product.getCode().equals(code)) return product;
+            if (product.getCode().equals(code)) {
+                return product;
+            }
         }
         return null;
     }
 
     public static ArrayList<Product> getProducts(String path) {
         ArrayList<Product> products = new ArrayList<Product>();
+        BufferedReader in = null;
+
         try {
-            BufferedReader in = new BufferedReader(new FileReader(path));
+            in = new BufferedReader(new FileReader(path));
             String line;
             while ((line = in.readLine()) != null) {
                 StringTokenizer tokens = new StringTokenizer(line, "|");
-                products.add(new Product(tokens.nextToken(), tokens.nextToken(),
-                        Double.parseDouble(tokens.nextToken())));
+                String code = tokens.nextToken();
+                String description = tokens.nextToken();
+                double price = Double.parseDouble(tokens.nextToken());
+                products.add(new Product(code, description, price));
             }
-            in.close();
-        } catch (IOException e) { }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
         return products;
     }
 }
