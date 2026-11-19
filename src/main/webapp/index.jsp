@@ -1,78 +1,11 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="jakarta.tags.core" %>
-<%@ include file="/includes/header.html" %>
-
-<main>
-
-    <img src="images/murach_logo.jpg" alt="Murach Logo" class="logo">
-
-    <h1>Survey</h1>
-    <p>If you have a moment, we'd appreciate it if you would fill out this survey.</p>
-    <c:if test="${message != null}">
-        <p>${message}</p>
-    </c:if>
-
-    <form action="emailList" method="post">
-        <input type="hidden" name="action" value="add">
-
-        <section>
-            <h2>Your information:</h2>
-
-            <label class="entry" for="firstName">First Name</label>
-            <input type="text" id="firstName" name="firstName" value="${param.firstName}"><br>
-
-            <label class="entry" for="lastName">Last Name</label>
-            <input type="text" id="lastName" name="lastName" value="${param.lastName}"><br>
-
-            <label class="entry" for="email">Email</label>
-            <input type="email" id="email" name="email" value="${param.email}"><br>
-
-            <label class="entry" for="dateOfBirth">Date of Birth</label>
-            <input type="date" id="dateOfBirth" name="dateOfBirth" value="${param.dateOfBirth}"><br>
-        </section>
-
-        <section>
-            <h2>How did you hear about us?</h2>
-            <div class="radio-group">
-                <input type="radio" name="hearAbout" id="search" value="Search engine" checked>
-                <label for="search" class="inline">Search engine</label>
-
-                <input type="radio" name="hearAbout" id="mouth" value="Word of mouth">
-                <label for="mouth" class="inline">Word of mouth</label>
-
-                <input type="radio" name="hearAbout" id="social" value="Social Media">
-                <label for="social" class="inline">Social Media</label>
-
-                <input type="radio" name="hearAbout" id="other" value="Other">
-                <label for="other" class="inline">Other</label>
-            </div>
-        </section>
-
-        <section>
-            <h2>Would you like to receive announcements<br>about new CDs and special offers?</h2>
-
-            <div class="checkbox-group">
-                <input type="checkbox" name="wantsAnnouncements" id="announce" value="YES">
-                <label for="announce" class="inline">YES, I'd like that.</label>
-            </div>
-
-            <div class="checkbox-group">
-                <input type="checkbox" name="wantsCdReleases" id="cd-releases" value="YES">
-                <label for="cd-releases" class="inline">YES, please send me email about new CD releases.</label>
-            </div>
-
-            <div>
-                <label class="inline" for="contactVia">Please contact me by:</label>
-                <select id="contactVia" name="contactVia">
-                    <option value="Email or postal mail">Email or postal mail</option>
-                    <option value="Email only">Email only</option>
-                    <option value="Postal mail only">Postal mail only</option>
-                </select>
-            </div>
-        </section>
-
-        <input type="submit" value="Submit">
-    </form>
-
-</main>
-<%@ include file="/includes/footer.jsp" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><title>Murach's Java Servlets and JSP</title>
+<link rel="stylesheet" href="styles/main.css" type="text/css"/></head><body>
+<h1>CD list</h1>
+<table><tr><th>Description</th><th class="right">Price</th><th></th></tr>
+<c:forEach var="product" items="${products}"><tr><td>${product.description}</td>
+<td class="right">${product.priceCurrencyFormat}</td><td><form action="cart" method="post">
+<input type="hidden" name="action" value="cart"><input type="hidden" name="productCode" value="${product.code}">
+<input type="submit" value="Add To Cart"></form></td></tr></c:forEach></table>
+</body></html>
