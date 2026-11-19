@@ -1,21 +1,10 @@
-# CD List
+# CD list
 
-Bài tập Chapter 7 sử dụng Java Servlet/JSP để làm trang danh sách CD và giỏ hàng.
+Ứng dụng giỏ hàng CD theo Chapter 7 của Murach's Java Servlets and JSP.
+Ứng dụng dùng Servlet 3.0, JSP, JSTL và lưu giỏ hàng trong session.
 
-## Chạy project
+Package chính: `murach.business`, `murach.data`, `murach.cart`.
 
-```bash
-mvn clean package
-```
+Build WAR: `mvn clean package`
 
-Deploy `target/ch07cart.war` vào Tomcat 9 hoặc chạy bằng server Tomcat trong IDE. Mở:
-
-`http://localhost:8080/ch07cart/`
-
-## Domain model
-
-- `Product`: mã, mô tả và giá CD.
-- `LineItem`: một CD và số lượng trong giỏ.
-- `Cart`: danh sách `LineItem`, có thêm, cập nhật và xóa sản phẩm.
-
-Servlet lưu `Cart` vào `HttpSession` với attribute name `cart`, đúng cách làm trong Chapter 7.
+Deploy `target/ch07cart.war` lên Tomcat 9, sau đó mở `http://localhost:8080/ch07cart/`.
