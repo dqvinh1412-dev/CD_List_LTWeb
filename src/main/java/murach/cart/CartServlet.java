@@ -26,23 +26,37 @@ public class CartServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getParameter("action");
-        if (action == null) action = "shop";
+        if (action == null) {
+            action = "shop";
+        }
+
         String productCode = request.getParameter("productCode");
         if (productCode != null) {
             final Object lock = request.getSession().getId().intern();
             synchronized (lock) {
                 HttpSession session = request.getSession();
                 Cart cart = (Cart) session.getAttribute("cart");
-                if (cart == null) cart = new Cart();
+                if (cart == null) {
+                    cart = new Cart();
+                }
+
                 Product product = ProductIO.getProduct(productCode, path);
-                if (product != null) cart.addItem(new LineItem(product, 1));
+                if (product != null) {
+                    // add item to cart
+                    cart.addItem(new LineItem(product, 1));
+                }
                 session.setAttribute("cart", cart);
             }
             action = "cart";
         }
+
         String url = "/index.jsp";
-        if (action.equals("cart")) url = "/cart.jsp";
-        else if (action.equals("checkout")) url = "/checkout.jsp";
+        if (action.equals("cart")) {
+            url = "/cart.jsp";
+        } else if (action.equals("checkout")) {
+            url = "/checkout.jsp";
+        }
+
         getServletContext().getRequestDispatcher(url).forward(request, response);
     }
 
@@ -52,22 +66,36 @@ public class CartServlet extends HttpServlet {
         String productCode = request.getParameter("productCode");
         String quantityString = request.getParameter("quantity");
         int quantity = 1;
+
         if (quantityString != null) {
-            try { quantity = Integer.parseInt(quantityString); }
-            catch (NumberFormatException e) { quantity = 0; }
-            if (quantity < 0) quantity = 0;
+            try {
+                quantity = Integer.parseInt(quantityString);
+            } catch (NumberFormatException e) {
+                quantity = 0;
+            }
+
+            if (quantity < 0) {
+                quantity = 0;
+            }
         }
+
         final Object lock = request.getSession().getId().intern();
         synchronized (lock) {
             HttpSession session = request.getSession();
             Cart cart = (Cart) session.getAttribute("cart");
-            if (cart == null) cart = new Cart();
+            if (cart == null) {
+                cart = new Cart();
+            }
+
             Product product = ProductIO.getProduct(productCode, path);
             if (product != null) {
-                LineItem item = new LineItem(product, quantity);
-                if (quantity == 0) cart.removeItem(item);
-                else if (quantityString == null) cart.addItem(item);
-                else { cart.removeItem(item); cart.addItem(item); }
+                if (quantityString == null) {
+                    // add item to cart
+                    cart.addItem(new LineItem(product, 1));
+                } else {
+                    // update item quantity
+                    cart.updateItem(productCode, quantity);
+                }
             }
             session.setAttribute("cart", cart);
         }
