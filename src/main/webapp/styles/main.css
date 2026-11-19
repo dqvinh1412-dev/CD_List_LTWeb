@@ -1,0 +1,43 @@
+body {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    margin: 0;
+    padding: 34px;
+    color: #111;
+}
+
+main {
+    width: 720px;
+    margin: 0 auto;
+}
+
+h1 {
+    color: #006b6b;
+    font-size: 24px;
+    margin: 0 0 14px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    border: 1px solid #555;
+    padding: 8px 6px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+th { background: #f4f4f4; }
+th:nth-child(2), td:nth-child(2) { width: 92px; }
+td form { margin: 0; }
+
+.quantity-form {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+input[type="number"] { width: 38px; }
+a { color: #0645ad; }
